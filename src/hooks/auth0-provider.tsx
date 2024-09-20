@@ -23,6 +23,7 @@ import {
   MultifactorChallengeOptions,
   PasswordlessWithEmailOptions,
   PasswordlessWithSMSOptions,
+  RevokeOptions,
   User,
   WebAuthorizeOptions,
   WebAuthorizeParameters,
@@ -352,6 +353,13 @@ const Auth0Provider = ({
     [client.credentialsManager]
   );
 
+  const revoke = useCallback(
+    (parameters: RevokeOptions) => {
+      return client.auth.revoke(parameters);
+    },
+    [client]
+  );
+
   const contextValue = useMemo(
     () => ({
       ...state,
@@ -370,6 +378,7 @@ const Auth0Provider = ({
       getCredentials,
       clearCredentials,
       requireLocalAuthentication,
+      revoke,
     }),
     [
       state,
@@ -388,6 +397,7 @@ const Auth0Provider = ({
       getCredentials,
       clearCredentials,
       requireLocalAuthentication,
+      revoke,
     ]
   );
 

@@ -15,6 +15,7 @@ import {
   PasswordlessWithSMSOptions,
   ClearSessionOptions,
   ExchangeNativeSocialOptions,
+  RevokeOptions,
 } from '../types';
 import LocalAuthenticationStrategy from '../credentials-manager/localAuthenticationStrategy';
 
@@ -129,6 +130,10 @@ export interface Auth0ContextInterface<TUser extends User = User>
     fallbackTitle?: string,
     strategy?: LocalAuthenticationStrategy
   ) => Promise<void>;
+  /**
+   *Revokes an issued refresh token. See {@link Auth#revoke}
+   */
+  revoke: (parameters: RevokeOptions) => Promise<void>;
 }
 
 export interface AuthState<TUser extends User = User> {
@@ -169,6 +174,7 @@ const initialContext = {
   getCredentials: stub,
   clearCredentials: stub,
   requireLocalAuthentication: stub,
+  revoke: stub,
 };
 
 const Auth0Context = createContext<Auth0ContextInterface>(initialContext);
